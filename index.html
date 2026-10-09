@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NURS2325 Lecture 7 — Liver MCQ</title>
+<style>
+:root { --ink:#1c1917; --muted:#57534e; --line:#e7e5e4; --bg:#fafaf9; --card:#fff; --accent:#9f1239; --ok:#166534; --bad:#991b1b; }
+* { box-sizing:border-box; }
+body { margin:0; font-family: Georgia, "Times New Roman", serif; background:var(--bg); color:var(--ink); }
+header { background:#1c1917; color:#fff; padding:28px 20px 22px; }
+header p, header h1 { max-width:820px; margin:0 auto; }
+header h1 { font-size:1.45rem; font-weight:600; letter-spacing:0; }
+header p { margin-top:8px; color:#d6d3d1; font-family: system-ui, sans-serif; font-size:.92rem; line-height:1.45; }
+main { max-width:820px; margin:0 auto; padding:18px 16px 48px; }
+.meta { font-family:system-ui,sans-serif; color:var(--muted); font-size:.88rem; margin:8px 0 16px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:18px 16px; margin:0 0 14px; }
+.stem { font-size:1.05rem; line-height:1.5; margin:0 0 12px; }
+.opts { display:flex; flex-direction:column; gap:8px; }
+label.opt { display:flex; gap:10px; align-items:flex-start; border:1px solid var(--line); border-radius:8px; padding:10px 12px; cursor:pointer; font-family:system-ui,sans-serif; font-size:.98rem; line-height:1.4; }
+label.opt:hover { border-color:#a8a29e; }
+label.opt input { margin-top:3px; }
+label.opt.correct { border-color:var(--ok); background:#f0fdf4; }
+label.opt.wrong { border-color:var(--bad); background:#fef2f2; }
+.why { display:none; margin-top:10px; font-family:system-ui,sans-serif; font-size:.92rem; line-height:1.45; color:#44403c; }
+.card.show .why { display:block; }
+.bar { position:sticky; bottom:0; background:rgba(250,250,249,.95); border-top:1px solid var(--line); padding:12px 16px; display:flex; gap:10px; justify-content:center; }
+button { font-family:system-ui,sans-serif; background:var(--accent); color:#fff; border:0; border-radius:8px; padding:12px 18px; font-size:1rem; cursor:pointer; }
+button.ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
+#score { font-family:system-ui,sans-serif; font-size:1.15rem; margin:0 0 12px; }
+footer { max-width:820px; margin:0 auto; padding:0 16px 28px; color:var(--muted); font-family:system-ui,sans-serif; font-size:.82rem; }
+</style>
+</head>
+<body>
+<header>
+<h1>NURS2325 Nursing Care for Adult I</h1>
+<p>Lecture 7 — Liver. Section A style practice: 30 multiple-choice questions, one best answer. Based on the lecture, written in the same client-stem format as the past paper. Not an official paper.</p>
+</header>
+<main>
+<p class="meta">Answer all questions. Each question carries equal marks. Then submit to mark and read the rationale.</p>
+<div id="quiz"></div>
+<p id="score" hidden></p>
+</main>
+<div class="bar">
+<button id="submit" type="button">Submit and mark</button>
+<button id="reset" class="ghost" type="button">Reset</button>
+</div>
+<footer>Practice set for personal revision. Answers follow Lecture 7 (Florence Wong) and the serology style of the NURS2325 past paper.</footer>
+<script>
+const questions = [
+  {q:"A client underwent general health screening with the following serologic results for hepatitis B: HBsAg negative, IgM anti-HBc negative, anti-HBs positive. Which interpretation is correct?", options:["Acute infection.","Chronic infection.","Never infected.","Vaccine immunity."], a:3, why:"Anti-HBs alone means immunity from vaccination. Natural recovery also produces anti-HBc. Acute and chronic infection are HBsAg positive."},
+  {q:"A client had acute hepatitis B eight months ago. HBsAg is still positive. Which statement is correct?", options:["The client is immune and non-infectious.","The client is an HBsAg carrier.","Anti-HBs must already be positive.","Carrier state is diagnosed at 6 weeks."], a:1, why:"HBsAg that persists for 6 months or longer after acute infection defines an HBsAg carrier."},
+  {q:"Anti-HBs is detected during late convalescence. What does this marker indicate?", options:["Active viral replication.","Window-period infection only.","Recovery and development of immunity.","Need for immediate HBIG."], a:2, why:"The lecture states anti-HBs in late convalescence indicates recovery and immunity."},
+  {q:"Which pair of hepatitis viruses is transmitted by the faecal-oral route?", options:["A and E.","B and C.","C and D.","B and D."], a:0, why:"Hepatitis A and E are faecal-oral. B, C and D share blood, sexual and perinatal characteristics."},
+  {q:"A student asks which statement about hepatitis A is true. Which reply follows the lecture?", options:["A carrier state is common.","Chronic hepatitis A is the usual outcome.","Carrier state and chronic state do not exist.","Immunization is not available."], a:2, why:"HAV has no carrier state and no chronic state. Vaccine is available: 2 injections, 6–18 months apart. Incubation is 15–50 days."},
+  {q:"A traveller asks about hepatitis E prevention. Which statement is correct?", options:["A hepatitis E vaccine is routinely available.","Carrier state is common after recovery.","Immunization is not available; use food and water precautions.","It is transmitted only by blood transfusion."], a:2, why:"HEV is faecal-oral, has no carrier or chronic state, and the lecture says immunization is not available."},
+  {q:"The incubation period of hepatitis A stated in the lecture is:", options:["28–160 days, average 30 days.","15–50 days.","15–65 days.","6–18 months."], a:1, why:"HAV incubation is 15–50 days. HEV is 15–65 days. HBV is 28–160 days, average 30 days."},
+  {q:"A carrier mother asks about the chance of perinatal hepatitis B transmission to her infant. The lecture figure is up to:", options:["10%.","30%.","50%.","90%."], a:3, why:"Perinatal transmission from a carrier mother can be up to 90%."},
+  {q:"Hepatitis B virus can be found in which body fluids, according to the lecture?", options:["Blood only.","Blood, saliva, semen and vaginal secretions.","Urine and sweat only.","Faeces only."], a:1, why:"HBV is found in blood, saliva, semen and vaginal secretions, and enters through mucous membranes or breaks in the skin."},
+  {q:"Most people who contract hepatitis B:", options:["Become carriers for life.","Develop antibodies and recover spontaneously within 6 months.","Progress to hepatocellular carcinoma within 1 year.","Require entecavir in every case."], a:1, why:"More than 90% recover spontaneously in 6 months. About 10% become carriers or develop chronic hepatitis."},
+  {q:"HBsAg is best described as:", options:["A marker of active replication and infection.","Proof of vaccine immunity.","An antibody formed in late convalescence.","A test used only for hepatitis D."], a:0, why:"HBsAg is the surface antigen and a marker of active replication and infection. Anti-HBs is the antibody of recovery or vaccination."},
+  {q:"The usual hepatitis B vaccine and schedule are:", options:["Plasma-derived vaccine, one dose only.","Yeast-recombinant vaccine into the deltoid at 0, 1 and 6 months.","Yeast-recombinant vaccine into the gluteus at 0 and 6 months.","HBIG at 0, 1 and 6 months."], a:1, why:"Common preparation is yeast-recombinant vaccine (Recombivax HB), given in the deltoid, 3 doses at 0, 1 and 6 months."},
+  {q:"A routine hepatitis B booster is required for:", options:["Every healthy adult every 5 years.","Immunocompromised patients only.","Anyone whose anti-HBs becomes undetectable.","All newborns at 12 months."], a:1, why:"A booster is required only for immunocompromised patients. Immunologic memory may last at least 5–10 years even if antibody becomes undetectable."},
+  {q:"Plasma-derived hepatitis B vaccine is reserved in the lecture for clients who are:", options:["Pregnant.","Immunodeficient or allergic to the yeast-recombinant vaccine.","Already HBsAg positive.","Travelling to India."], a:1, why:"The common vaccine is yeast-recombinant. Plasma from an infected person is for immunodeficient clients or those allergic to the recombinant vaccine."},
+  {q:"HBIG is indicated for a person exposed to HBV who:", options:["Completed vaccination and is a known responder.","Has never had hepatitis B and has never received hepatitis B vaccine.","Is already anti-HBs positive from natural recovery.","Has chronic hepatitis C only."], a:1, why:"Passive immunity with HBIG is for exposed people who have never had hepatitis B and never received the vaccine."},
+  {q:"An infant is born to an HBV-infected mother. HBIG should be given:", options:["Within 12 hours after delivery.","At the 6-month visit only.","Only if the infant develops jaundice.","Orally with the first feed."], a:0, why:"Perinatal exposure: HBIG within 12 hours after delivery, together with starting the vaccine series."},
+  {q:"After a full hepatitis B vaccine course, anti-HBs may be measured:", options:["1–3 months after completion.","On the day of the first dose.","Only if jaundice appears.","Five years later as the only useful time."], a:0, why:"Antibody response may be measured by anti-HBs 1–3 months after the basic course."},
+  {q:"About 5–10% of people are non-responders after:", options:["One dose of vaccine.","Two full courses of vaccine.","HBIG alone.","A single anti-HBs test at birth."], a:1, why:"The lecture notes 5–10% non-responders after two full courses. Measurable antibody is not always essential if immunologic memory remains."},
+  {q:"Hepatitis D serology is interpreted:", options:["As anti-HDV in the presence of HBsAg.","As a stand-alone infection with no need for HBV.","By HAV IgM.","By anti-HEV only."], a:0, why:"HDV needs HBV. The serum test is anti-HDV in the presence of HBsAg."},
+  {q:"A client with viral hepatitis reports dark urine and yellow eyes, but no pain. These findings match:", options:["Tea-coloured urine and jaundice.","Rovsing sign and rebound tenderness.","Spider angioma only.","A positive Rovsing sign."], a:0, why:"Lecture manifestations include jaundice (yellowish conjunctiva), tea-coloured urine, indigestion, vague epigastric discomfort and low-grade fever. Many patients are asymptomatic."},
+  {q:"In cirrhosis, serum albumin falls because of:", options:["Increased renal loss of protein only.","Decreased hepatic protein synthesis.","Haemolysis of red cells.","Portal vein thrombosis alone."], a:1, why:"Low albumin is due to decreased protein synthesis. Low oncotic pressure contributes to oedema and ascites."},
+  {q:"Which clotting result is expected in cirrhosis, and why?", options:["Shortened PT, because factor production rises.","Prolonged PT, because clotting-factor synthesis is impaired.","Normal PT, because albumin replaces clotting factors.","Prolonged PT, because ALT destroys fibrin."], a:1, why:"Impaired clotting profile with increased prothrombin time reflects reduced hepatic synthesis of clotting factors."},
+  {q:"A cirrhosis blood panel shows raised bilirubin. The lecture rationale is:", options:["Increased destruction of bilirubin by the spleen only.","Decreased hepatic handling / destruction of bilirubin.","Loss of bilirubin in stool.","Vitamin K deficiency."], a:1, why:"Serum bilirubin rises because the damaged liver cannot process and clear bilirubin. The slide phrase is decreased destruction of bilirubin."},
+  {q:"Ascites in cirrhosis is best explained by:", options:["Low albumin only.","Portal hypertension, low oncotic pressure from hypoalbuminaemia, and renal salt and water retention.","Right-sided heart failure only.","Hepatitis A faecal shedding."], a:1, why:"Raised portal hydrostatic pressure pushes fluid out; low albumin fails to hold fluid in vessels; RAAS and ADH then retain salt and water."},
+  {q:"Large-volume paracentesis is prescribed together with IV albumin. The albumin rationale on the slide is:", options:["To restore serum albumin level.","To sedate the client.","To dissolve oesophageal varices.","To replace clotting factors directly."], a:0, why:"Slide rationale: restore serum albumin level. Mechanistically it also supports oncotic pressure and circulating volume after large-volume drainage."},
+  {q:"The purpose of paracentesis in tense ascites is:", options:["To cure cirrhosis.","To relieve ascites efficiently.","To biopsy the liver.","To start a portosystemic shunt."], a:1, why:"Paracentesis removes ascitic fluid to relieve ascites efficiently. It does not reverse portal hypertension."},
+  {q:"Oesophageal varices in cirrhosis develop because:", options:["Portal pressure dilates thin collateral veins that drain into the portal system.","The hepatic artery is ligated.","Albumin is deposited in the oesophageal wall.","Lactulose erodes the mucosa."], a:0, why:"Varices are dilated, tortuous veins from elevated pressure in veins draining into the portal system. They occur in most people with cirrhosis and rupture is a major cause of death."},
+  {q:"A client with cirrhosis becomes drowsy. Ammonia is raised. Which prescribed therapy does the lecture link to this complication?", options:["Lactulose, with monitoring of mental status.","Sedatives to allow rest.","High-protein night feeds without limit.","Aspirin for fever."], a:0, why:"Hepatic encephalopathy is due to failure to detoxify ammonia. Lactulose lowers ammonia. Sedatives are avoided. Mental status is monitored."},
+  {q:"Rest is promoted in cirrhosis in order to:", options:["Permit the liver to re-establish functional ability and reduce metabolic demand.","Increase portal pressure.","Replace paracentesis.","Raise serum ammonia."], a:0, why:"Nursing management: promote rest so the liver can re-establish function and demands on the liver fall."},
+  {q:"To reduce injury in a client with cirrhosis, the nurse should first assess for:", options:["Petechiae, ecchymosis and other bleeding signs.","A positive Rovsing sign only.","Vaccine non-response.","Faecal shedding of HEV."], a:0, why:"Impaired clotting increases bleeding risk. Assess petechiae, ecchymosis, haematuria and other bleeding, and monitor PT. Position changes every 2–4 hours protect skin."}
+];
+const quiz = document.getElementById("quiz");
+questions.forEach((item, i) => {
+  const card = document.createElement("section");
+  card.className = "card";
+  card.dataset.i = i;
+  const opts = item.options.map((text, j) =>
+    `<label class="opt"><input type="radio" name="q${i}" value="${j}"><span><strong>${String.fromCharCode(97+j)})</strong> ${text}</span></label>`
+  ).join("");
+  card.innerHTML = `<p class="stem"><strong>${i+1}.</strong> ${item.q}</p><div class="opts">${opts}</div><p class="why"><strong>Rationale.</strong> ${item.why}</p>`;
+  quiz.appendChild(card);
+});
+document.getElementById("submit").onclick = () => {
+  let score = 0;
+  document.querySelectorAll(".card").forEach((card, i) => {
+    card.classList.add("show");
+    const chosen = card.querySelector("input:checked");
+    const pick = chosen ? Number(chosen.value) : -1;
+    card.querySelectorAll(".opt").forEach((lab, j) => {
+      lab.classList.remove("correct","wrong");
+      if (j === questions[i].a) lab.classList.add("correct");
+      else if (j === pick) lab.classList.add("wrong");
+    });
+    if (pick === questions[i].a) score++;
+  });
+  const scoreEl = document.getElementById("score");
+  scoreEl.hidden = false;
+  scoreEl.textContent = `Score: ${score} / ${questions.length}`;
+  scoreEl.scrollIntoView({behavior:"smooth"});
+};
+document.getElementById("reset").onclick = () => {
+  document.querySelectorAll("input").forEach(el => el.checked = false);
+  document.querySelectorAll(".card").forEach(card => card.classList.remove("show"));
+  document.querySelectorAll(".opt").forEach(lab => lab.classList.remove("correct","wrong"));
+  document.getElementById("score").hidden = true;
+  window.scrollTo({top:0, behavior:"smooth"});
+};
+</script>
+</body>
+</html>
