@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Global Economy MC Practice — Set 2</title>
+<style>
+:root { --ink:#1c1917; --line:#e7e5e4; --bg:#fafaf9; --card:#fff; --accent:#1d4ed8; --ok:#166534; --bad:#991b1b; }
+* { box-sizing:border-box; }
+body { margin:0; font-family: Georgia, "Times New Roman", serif; background:var(--bg); color:var(--ink); }
+header { background:#1e293b; color:#fff; padding:24px 18px 18px; }
+header h1, header p, .wrap { max-width:860px; margin-left:auto; margin-right:auto; }
+header h1 { font-size:1.4rem; margin:0; font-weight:600; }
+header p { margin:8px auto 0; color:#cbd5e1; font-family:system-ui,sans-serif; font-size:.92rem; line-height:1.45; }
+.wrap { padding:16px; }
+.tabs { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 14px; }
+.tabs button { font-family:system-ui,sans-serif; border:1px solid var(--line); background:#fff; border-radius:8px; padding:8px 12px; cursor:pointer; }
+.tabs button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+.card { background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px; margin:0 0 12px; }
+.stem { margin:0 0 10px; font-size:1.02rem; line-height:1.5; }
+.opts { display:flex; flex-direction:column; gap:8px; }
+label.opt { display:flex; gap:10px; align-items:flex-start; border:1px solid var(--line); border-radius:8px; padding:10px 12px; cursor:pointer; font-family:system-ui,sans-serif; font-size:.96rem; line-height:1.4; }
+label.opt.correct { border-color:var(--ok); background:#f0fdf4; }
+label.opt.wrong { border-color:var(--bad); background:#fef2f2; }
+.why { display:none; margin-top:10px; font-family:system-ui,sans-serif; font-size:.9rem; color:#44403c; line-height:1.45; }
+.card.show .why { display:block; }
+.bar { position:sticky; bottom:0; background:rgba(250,250,249,.96); border-top:1px solid var(--line); padding:12px; display:flex; gap:10px; justify-content:center; }
+.bar button { font-family:system-ui,sans-serif; background:var(--accent); color:#fff; border:0; border-radius:8px; padding:12px 16px; font-size:1rem; cursor:pointer; }
+.bar button.ghost { background:#fff; color:var(--ink); border:1px solid var(--line); }
+#score { font-family:system-ui,sans-serif; font-size:1.1rem; margin:0 0 10px; }
+.hidden { display:none; }
+</style>
+</head>
+<body>
+<header>
+<h1>The Rise of the Modern Global Economy — Set 2</h1>
+<p>Second set of practice MC questions for Lectures 1–3. English only. One best answer. Based on the lecture notes.</p>
+</header>
+<div class="wrap">
+<div class="tabs">
+<button class="on" data-lec="1" type="button">Lecture 1 · Discovery</button>
+<button data-lec="2" type="button">Lecture 2 · Industrial Revolution</button>
+<button data-lec="3" type="button">Lecture 3 · US &amp; Depression</button>
+</div>
+<p id="score" class="hidden"></p>
+<div id="quiz"></div>
+</div>
+<div class="bar">
+<button id="submit" type="button">Submit and mark</button>
+<button id="reset" class="ghost" type="button">Reset this lecture</button>
+</div>
+<script>
+const data = {
+1: [
+{q:"After the geographic discovery of America, which of the following intensified?", options:["Only local trade within Europe.","Global commerce, international division of production, and migration across countries.","The end of all colonization.","A return to subsistence farming only."], a:1, why:"Discovery connected different parts of the world into one global economy and intensified commerce, production division, and migration."},
+{q:"The colonial system largely ended after:", options:["the end of the 15th century.","the Second World War (1939–1945).","the Industrial Revolution in Britain.","the Bretton Woods conference."], a:1, why:"Colonial system ended after WWII; many newly independent African and Asian countries then entered the postwar global economy."},
+{q:"East Asian countries that were colonies and became independent after WWII include:", options:["Britain, France and Germany.","India, Pakistan, Indonesia, Singapore, Malaysia, Vietnam and the Philippines.","the United States and Canada.","Russia and China only."], a:1, why:"Lecture lists these as colonies that became independent countries after WWII."},
+{q:"The non-synchronous industrialization sequence created:", options:["equal living standards everywhere immediately.","a chasm between developed and undeveloped economies.","the immediate end of colonialism.","a single global currency in 1492."], a:1, why:"Different timing of industrialization created a gap between developed and undeveloped economies."},
+{q:"In communist countries after WWII, economic organization featured:", options:["private ownership and free market prices.","public ownership of resources and strict government control of economic activities.","the invisible hand as the only planner.","membership in the Euro Zone."], a:1, why:"Public ownership replaced private ownership; activities were under strict government control. Markets, meaningful prices, and profit/loss largely disappeared."},
+{q:"Under central planning in communist economies, factories typically:", options:["responded mainly to consumer preferences.","tried to meet production quotas with little attention to output quality.","set prices freely in markets.","ignored government plans."], a:1, why:"Resources were allocated by government plans; factories focused on quotas rather than quality. The Great Leap Forward is given as an example."},
+{q:"China's relative economic position after the start of Western industrialization:", options:["rose rapidly because it joined industrialization early.","diminished rapidly because it failed to join the global industrialization and modernization process.","stayed unchanged until 1492.","immediately overtook Britain in 1760."], a:1, why:"China was the largest economy under the Qing before the first stage of industrialization, then its relative position fell as it missed the process."},
+{q:"As the world factory after reform, China:", options:["stopped exporting manufactured goods.","demanded large amounts of natural resources and industrial inputs and exported huge amounts of manufactured goods.","adopted the euro as its currency.","ended all trade with the US."], a:1, why:"Lecture: as world factory, China demanded resources and inputs and exported manufactured goods, shaking the global economy."},
+{q:"Under Xi Jinping, China began:", options:["challenging the US dominant position in the world economy, leading to a trade war in 2018–19.","joining the Euro Zone.","returning fully to a pure command economy.","ending all industrialization."], a:0, why:"Lecture states China under Xi began challenging the US position, and the two entered a trade war in 2018–19."},
+{q:"After WWII, globalization intensified partly because:", options:["the US became the most powerful nation and the dollar became the main vehicle currency.","colonial empires expanded further.","nuclear weapons were never developed.","GATT raised all tariffs."], a:0, why:"US became the most powerful nation; USD held vehicle-currency status under Bretton Woods and after."},
+{q:"Thomas Friedman described the intensified globalization as:", options:["The World is Flat.","The World is Closed.","The End of Trade.","The Return of Empires."], a:0, why:"Lecture cites Friedman: barriers to cross-country competition are removed; the world is flat."},
+{q:"Multinational corporations under intensified globalization created:", options:["only local supply chains within one city.","global supply chains for production and distribution of goods around the world.","a ban on international cargo.","the Soviet planning system."], a:1, why:"MNCs created global supply chains; international cargo and human traffic grew with the world economy."},
+{q:"The advance of ICT since the 1980s:", options:["slowed globalization.","accelerated globalization by disseminating information instantly at no cost.","ended financial liberalization.","stopped the rise of middle-income classes."], a:1, why:"ICT accelerated globalization; local events quickly resonated worldwide. Financial liberalization and ICT also integrated global financial markets."},
+{q:"The European Union, in the lecture's example of regional integration:", options:["uses the same customs rules against non-members and allows free internal movement of goods, capital and people.","requires every member to use the US dollar.","is limited to 3 countries.","bans all trade with Asia."], a:0, why:"28 European countries (at the time of the lecture) formed the EU with common external customs and free internal movement."},
+{q:"Other regional economic groupings mentioned include:", options:["NAFTA, ASEAN, China's One-Belt-One-Road, BRICS, and Groups of 5, 7 and 20.","only the Soviet Union.","only bilateral treaties between Spain and Portugal.","the Corn Law."], a:0, why:"Lecture lists NAFTA, ASEAN, Belt and Road, BRICS, and G5/G7/G20 as forms of regional cooperation."},
+{q:"To achieve sustained growth in per-capita output, the lecture stresses that:", options:["only more land and labour are enough forever.","new inventions and advances in technology became crucial.","colonization alone guarantees rising income forever.","closing all markets is required."], a:1, why:"More inputs raise output, but sustained per-capita growth needs new inventions and technology."},
+{q:"The third stage of industrialization is associated with:", options:["coal and steam engines only.","Internet, computers, ICT and mobile phones, with the US maintaining leadership.","only the spinning jenny.","the enclosure movement."], a:1, why:"Third stage: Internet, computers, ICT, mobile phones. US kept leadership."},
+{q:"Countries now devote a significant portion of GDP to R&D in order to:", options:["stop all new patents.","generate a stable stream of new technology and products rather than relying on haphazard development.","return to pure agrarian production.","abolish private property."], a:1, why:"Lecture: countries invest in R&D for a steady flow of technology; companies compete for patents."},
+{q:"The 1970s energy crisis:", options:["caused supply shocks, with recession and inflation occurring together in oil-importing countries.","ended all use of oil forever.","was solved by the Corn Law.","raised living standards in every country immediately."], a:0, why:"Energy crisis was a supply shock; recession and inflation occurred at the same time in oil-importing countries."},
+{q:"Each major financial crisis and recession typically caused:", options:["mass unemployment, bankruptcy, and lost output and wealth.","automatic full employment with no government role.","the immediate end of all trade.","a permanent return to 15th-century population levels."], a:0, why:"Lecture: crises cause mass unemployment, bankruptcy, lost output and wealth. Managing them became a major function of modern government."}
+],
+2: [
+{q:"The Industrial Revolution greatly increased:", options:["only the number of farms, with no change in income.","productivity, output and income, and transformed the structure of the economy.","subsistence living only.","the use of hand tools alone."], a:1, why:"It raised productivity, output and income and changed economic structure; world population and living standards later rose greatly."},
+{q:"Before the Industrial Revolution, one major energy source in Britain was:", options:["nuclear power.","firewood, which was quickly used up as population rose.","solar panels.","shale oil."], a:1, why:"Firewood was a major source; rising population used it up, so people turned to coal."},
+{q:"Extracting coal in Britain faced a major difficulty because:", options:["Britain had no coal.","many underground coal seams were covered by water.","steam engines already existed in 1492.","the Gauge Act banned mining."], a:1, why:"Underground water covered many seams; pumping water out was a major hurdle, which steam engines later solved."},
+{q:"Matthew Boulton's role was to:", options:["invent the Atmospheric Engine in 1705.","turn Watt's improved steam engine into a commercial success.","repeal the Corn Law.","discover America."], a:1, why:"Newcomen made the early engine; Watt improved it; Boulton commercialized it."},
+{q:"With further improvement, steam engines were expanded into:", options:["textile production and the making of locomotives and steamboats.","only coal mining forever.","computer manufacturing in 1765.","nuclear plants."], a:0, why:"Use expanded from mines into textiles, locomotives and steamboats."},
+{q:"Inventions such as the cotton gin and spinning jenny:", options:["slowed the textile industry.","increased the speed and productivity of the textile industry.","were banned by the patent system.","replaced all steam engines."], a:1, why:"These raised speed and productivity; the power loom with steam further enhanced output."},
+{q:"With massive growth in textile factories, Britain became:", options:["the leading producer of textiles in the world.","an agrarian economy only.","dependent on Chinese steam engines.","a member of the Euro Zone."], a:0, why:"Britain became the leading textile producer during the first stage."},
+{q:"Industrialization increased demand for:", options:["only hand-spun cotton.","steel and machines to equip the factories.","fewer transport links.","a return to wooden rails only."], a:1, why:"Factories needed steel and machines; railways later moved raw materials and goods."},
+{q:"During the railway mania of 1835–48:", options:["no new railways were built.","many competing railway companies constructed railways across the country.","the Gauge Act had already standardized everything in 1705.","steam locomotives were banned."], a:1, why:"Competing companies built railways; the Gauge Act of 1848 later standardized the rails."},
+{q:"Railways affected farming because:", options:["perishable goods such as dairy products could now be moved long distances before they spoiled.","all farms were closed.","only coal could be transported.","they ended the need for markets."], a:0, why:"Lecture: railways let perishable goods travel farther before perishing."},
+{q:"Scientists and inventors in Britain generally:", options:["had lower social standing than elsewhere.","had higher social standing and could research in a relatively unrestricted environment.","were forbidden to publish.","worked only under strict central planning."], a:1, why:"Higher standing and an unrestricted environment, plus the patent system, helped invention."},
+{q:"The enclosure movement led many small farmers and rural workers to:", options:["receive more land and stay on farms forever.","move to cities for factory jobs or migrate to the US.","become the main owners of steam engines immediately.","ban child labour."], a:1, why:"Loss of farmland pushed people to cities (or to the US), supplying cheap and abundant labour."},
+{q:"In the early stage of the Industrial Revolution, factories employed:", options:["only adult male workers.","male, female and child labour.","no labour at all.","only overseas slaves in every factory."], a:1, why:"Female and child labour were used in the newly formed factories."},
+{q:"Capitalists in Britain who earned profit in the early stage:", options:["refused to reinvest.","plowed profit back into further expansion of production.","were required by law to stop production.","only invested in foreign land, never factories."], a:1, why:"They reinvested profits; overseas markets such as the US and India further raised sales and profit."},
+{q:"Britain in the first stage of the Industrial Revolution:", options:["dominated textile and steel production and was the leading industrial power.","lagged behind China in steam power.","had no overseas markets.","adopted a minimum wage law immediately."], a:0, why:"Britain led in textiles and steel and was the leading industrial power in stage one."},
+{q:"Countries lagging in industrialization, such as China, India and the Ottoman Empire:", options:["saw their share of the global economy diminish.","immediately overtook Britain in 1760.","all joined the Euro Zone.","experienced no change in relative position."], a:0, why:"Their relative economic share diminished while Britain’s output and income rose."},
+{q:"Adam Smith is also known in the lecture for:", options:["creating the concept of gross domestic product (GDP).","inventing the steam engine.","writing the General Theory in 1936.","designing the Dawes Plan."], a:0, why:"Smith is linked to the invisible hand, Wealth of Nations (1776), and the concept of GDP."},
+{q:"The second stage of the Industrial Revolution featured new energy and technology such as:", options:["only firewood and hand looms.","oil, electricity, chemicals, Bessemer steel, automobiles and radio.","only the internet in 1870.","nuclear fusion as the main power source."], a:1, why:"Stage two: oil, electricity, chemical, Bessemer steel, automobiles, radio (later TV). Leaders shifted to the US and Germany."},
+{q:"Japan in the industrialization process:", options:["played a strong catching-up role and became the second-largest economy after 1960.","never industrialized.","led the first stage from 1760.","remained purely agrarian until 2011."], a:0, why:"Japan caught up brilliantly and became the second-largest economy after 1960."},
+{q:"The coming fourth stage is expected to be led by technologies such as:", options:["only coal mining.","AI, 5G, the internet of things, 3D printers and nano-technology.","the repeal of the Corn Law.","horse-drawn carts."], a:1, why:"Fourth stage: AI, 5G ICT, IoT, 3D printers, nano-technology, etc."}
+],
+3: [
+{q:"During World War I, US industries:", options:["shrank because the war was fought only in the US.","expanded rapidly to supply the warring parties.","were nationalized by Germany.","stopped all production."], a:1, why:"The main battlefield was in Europe; US industries expanded to supply the warring parties."},
+{q:"The Allied Powers (Triple Entente) consisted of:", options:["France, Russia and Britain.","Germany, Austria-Hungary and the Ottoman Empire.","the US, China and Japan.","only the United States."], a:0, why:"Allied / Triple Entente: France, Russia, Britain. Central Powers: Germany, Austria-Hungary, Ottoman Empire."},
+{q:"The two sides were in a stalemate until:", options:["1914.","1917.","1929.","1941."], a:1, why:"Stalemate until 1917; the US then joined the Allies in 1917–18."},
+{q:"At the end of WWI, the United States:", options:["became a superpower.","lost its gold reserves to Europe.","was required to pay reparations to Germany.","adopted the mark."], a:0, why:"By the end of the war the US had become the superpower."},
+{q:"During the war, Britain:", options:["sold off its US financial investments to pay for war expenditure.","bought more US investments.","sent all its gold to Germany.","refused to trade with the US."], a:0, why:"Britain sold US investments; plenty of gold left Europe for the US for safety and payment of war supplies."},
+{q:"Defeated Germany under the Treaty of Versailles was required to:", options:["concede territories and pay a very large reparation to France and Britain.","receive reparations from the Allies.","join the Allied Powers.","print no money at all."], a:0, why:"Germany lost territories and had to pay an unbearably large reparation. This sowed seeds of later conflict."},
+{q:"To meet reparations and reconstruction, the Weimar government:", options:["printed massive amounts of paper money, causing hyperinflation.","immediately balanced the budget with no inflation.","adopted the gold standard strictly from day one.","refused all loans."], a:0, why:"Massive printing caused hyperinflation and destroyed middle-class wealth."},
+{q:"French occupation of the Ruhr:", options:["increased Germany’s ability to pay reparations.","further reduced Germany’s ability to pay reparations.","was part of the Dawes Plan.","ended hyperinflation immediately."], a:1, why:"Occupation of the industrial Ruhr reduced Germany’s capacity to pay."},
+{q:"After the Dawes Plan:", options:["Germany stopped excessive money printing and the global economy soon recovered.","the US refused any further role in Europe.","hyperinflation accelerated further.","the stock market crashed in 1924."], a:0, why:"US loan paid reparations; Germany stopped excessive printing; the world recovered. The lecture stresses the world relied on the US for stability."},
+{q:"In the Roaring Twenties:", options:["industrial production, disposable income and consumer spending continued to grow.","the US became the smallest economy.","cars became more expensive every year.","advertising disappeared."], a:0, why:"Post-WWI optimism; largest economy; production, disposable income and spending grew."},
+{q:"Most of the extra incomes earned in the 1920s:", options:["went mainly to the middle class and the poor.","fell into the hands of corporations and the rich, worsening income inequality.","were taxed at 100 percent and redistributed fully.","were all invested in government bonds only."], a:1, why:"Extra income went largely to corporations and the rich; inequality worsened. Middle and lower incomes could not keep up with output."},
+{q:"Advertising and consumer loans in the 1920s:", options:["encouraged spending sometimes beyond affordability, and helped more families own cars and appliances.","banned all credit.","reduced consumption of radios and refrigerators.","were illegal under the Corn Law."], a:0, why:"Advertising pushed consumption; consumer credit let more people buy cars, radios, vacuum cleaners and refrigerators."},
+{q:"When the stock market crashed in 1929:", options:["banks lost heavily because many stock investors could not repay their margin loans.","all margin loans were instantly repaid in full.","public confidence rose and consumption increased.","the Dow immediately returned to 381."], a:0, why:"Investors were ruined; banks suffered when margin loans were not repaid; confidence fell and spending was cut."},
+{q:"The Great Depression:", options:["was the longest and deepest downturn in US and modern industrial history, lasting more than a decade.","lasted only a few months in 1929.","ended in 1930 with full employment.","raised GDP and lowered unemployment."], a:0, why:"Longest and deepest; 1929 to 1941; GDP and prices fell sharply; unemployment hit 25% in 1933."},
+{q:"Without government deposit insurance:", options:["depositors lost their savings when banks failed, inducing further bank runs.","no banks failed.","runs were impossible.","the Bank of United States was protected in 1930."], a:0, why:"Failure of banks wiped out savings and triggered more runs. The Bank of United States collapse in December 1930 sparked a nationwide run."},
+{q:"Those who kept jobs during the Depression often:", options:["received large pay rises.","took pay cuts of a third or more.","were guaranteed full pre-crash wages.","all became farmers in the Dust Bowl."], a:1, why:"Many who kept jobs took pay cuts of a third or more. Unemployed faced breadlines, begging, or selling apples; many lived in Hoovervilles."},
+{q:"Industrial production during the Depression:", options:["fell to about half of the 1929 level, and nominal GDP fell from about $105 billion to $57 billion.","doubled.","stayed exactly the same.","rose because of Smoot-Hawley."], a:0, why:"Production about half of 1929; nominal GDP bottomed near $57 billion from $105 billion."},
+{q:"On top of falling crop prices, a devastating drought in Oklahoma, Texas and Kansas:", options:["created the Dust Bowl.","ended all farm debt.","raised farm prices sharply.","was caused by the Dawes Plan."], a:0, why:"Dust Bowl dust storms worsened the agricultural crisis; many farmers could not repay bank loans."},
+{q:"Herbert Hoover’s measures:", options:["were too small in scale to stimulate aggregate demand adequately.","immediately restored full employment.","adopted large Keynesian deficits from 1929.","included the attack on Pearl Harbor."], a:0, why:"Measures such as the Hoover Dam were too small; cutting the federal funds rate to 1.5% in May 1931 also failed to stimulate the economy."},
+{q:"The New Deal:", options:["stabilized the US economy but did not restore full employment.","immediately created full employment in 1933.","was rejected by Roosevelt.","ended all government spending."], a:0, why:"New Deal stabilized the economy but did not restore full employment. Roosevelt still tried to keep the budget balanced as far as possible."},
+{q:"After the Great Depression, Western governments:", options:["took up macroeconomic stabilization, created safety nets such as Social Security, learned that wartime spending could cure unemployment, and used deposit insurance to reduce bank runs.","returned fully to pure laissez-faire with no safety net.","abolished all banks.","adopted communism as the only path."], a:0, why:"New role: macro stabilization (monetary and fiscal), Social Security, deposit insurance, and recognition that deficit spending can restore full employment. Capitalism could be stabilized without socialism."}
+]
+};
+let current = 1;
+const quiz = document.getElementById("quiz");
+const scoreEl = document.getElementById("score");
+function render(lec) {
+  current = lec;
+  quiz.innerHTML = "";
+  scoreEl.classList.add("hidden");
+  data[lec].forEach((item, i) => {
+    const card = document.createElement("section");
+    card.className = "card";
+    const opts = item.options.map((text, j) =>
+      `<label class="opt"><input type="radio" name="q${lec}-${i}" value="${j}"><span><strong>${String.fromCharCode(65+j)})</strong> ${text}</span></label>`
+    ).join("");
+    card.innerHTML = `<p class="stem"><strong>${i+1}.</strong> ${item.q}</p><div class="opts">${opts}</div><p class="why"><strong>Rationale.</strong> ${item.why}</p>`;
+    quiz.appendChild(card);
+  });
+  document.querySelectorAll(".tabs button").forEach(btn => btn.classList.toggle("on", Number(btn.dataset.lec) === lec));
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+document.querySelectorAll(".tabs button").forEach(btn => {
+  btn.onclick = () => render(Number(btn.dataset.lec));
+});
+document.getElementById("submit").onclick = () => {
+  let score = 0;
+  const items = data[current];
+  document.querySelectorAll(".card").forEach((card, i) => {
+    card.classList.add("show");
+    const chosen = card.querySelector("input:checked");
+    const pick = chosen ? Number(chosen.value) : -1;
+    card.querySelectorAll(".opt").forEach((lab, j) => {
+      lab.classList.remove("correct","wrong");
+      if (j === items[i].a) lab.classList.add("correct");
+      else if (j === pick) lab.classList.add("wrong");
+    });
+    if (pick === items[i].a) score++;
+  });
+  scoreEl.classList.remove("hidden");
+  scoreEl.textContent = `Lecture ${current} (Set 2) score: ${score} / ${items.length}`;
+  scoreEl.scrollIntoView({behavior:"smooth"});
+};
+document.getElementById("reset").onclick = () => render(current);
+render(1);
+</script>
+</body>
+</html>
